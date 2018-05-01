@@ -268,6 +268,12 @@ def run():
 def state_changed(state, duration):
     xbmclog('Kodi Hue: In state_changed(state={}, duration={})'.format(
         state, duration))
+    
+    # do nothing if sun is up
+    req = requests.get('http://{}/api/{}/sensors/1/'.format(
+    hue.settings.bridge_ip, hue.settings.bridge_user))
+    daylight = req.json()['state']['daylight']
+    if daylight: return
 
     if (xbmc.getCondVisibility('Window.IsActive(screensaver-atv4.xml)') or
             xbmc.getCondVisibility('Window.IsActive(screensaver-video-main.xml)')):
