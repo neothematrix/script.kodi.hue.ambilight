@@ -2,6 +2,7 @@ from threading import Event
 import os
 import sys
 import time
+import requests
 
 import xbmc
 import xbmcaddon
